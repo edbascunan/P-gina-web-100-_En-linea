@@ -5,10 +5,10 @@ interface Props {
   id: string;
   title: string;
   description: string;
-  projects: any[];
+  projects?: any[]; // Hacemos 'projects' opcional
 }
 
-const { id, title, description, projects } = Astro.props;
+const { id, title, description, projects = [] } = Astro.props; // Asignamos un array vacío por defecto
 ---
 
 <div class="bg-white rounded-xl shadow-lg overflow-hidden group hover:shadow-xl transition-shadow">

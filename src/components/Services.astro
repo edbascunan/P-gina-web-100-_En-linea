@@ -1,0 +1,121 @@
+---
+import ServiceCard from './ServiceCard.astro';
+
+const services = [
+  {
+    icon: 'Box' as const,
+    title: 'Modelos 3D',
+    description: 'Creación de modelos tridimensionales precisos para proyectos de construcción con tecnología BIM.',
+    // link: 'https://www.ebfservicios.cl/#contact' as const, // Eliminado
+    viewerUrl: 'https://autodeskviewer.com/embed/your-model-id-1',
+    image: 'src/images/servicios/modelos-3d.jpg' as const, // Placeholder image - Updated path
+    benefits: [
+      "Visualización clara del diseño",
+      "Detección temprana de errores",
+      "Mejor comunicación entre equipos"
+    ],
+    testimonial: {
+      author: "Cliente A",
+      text: "Los modelos 3D de EBF nos ayudaron a evitar costosos errores en la construcción."
+    }
+  },
+  {
+    icon: 'Calculator' as const,
+    title: 'Cubicaciones',
+    description: 'Cálculos detallados y precisos de materiales y recursos necesarios para tu proyecto.',
+    // link: 'https://www.ebfservicios.cl/#contact' as const, // Eliminado
+    viewerUrl: 'https://autodeskviewer.com/embed/your-model-id-2',
+    image: 'src/images/servicios/cubicaciones.jpg' as const, // Placeholder image - Updated path
+    benefits: [
+      "Cálculos precisos y confiables",
+      "Optimización de costos",
+      "Reducción de desperdicios"
+    ],
+    testimonial: {
+      author: "Cliente B",
+      text: "Las cubicaciones de EBF nos permitieron optimizar nuestro presupuesto y evitar sobrecostos."
+    }
+  },
+  {
+    icon: 'Layers' as const,
+    title: 'Presupuestos',
+    description: 'Elaboración de presupuestos detallados para licitaciones y estimaciones de costos.',
+    // link: 'https://www.ebfservicios.cl/#contact' as const, // Eliminado
+    viewerUrl: 'https://autodeskviewer.com/embed/your-model-id-3',
+    image: 'src/images/servicios/presupuestos.jpg' as const, // Placeholder image - Updated path
+    benefits: [
+      "Presupuestos detallados y competitivos",
+      "Estimaciones precisas de costos",
+      "Mejor planificación financiera"
+    ],
+    testimonial: {
+      author: "Cliente C",
+      text: "Los presupuestos de EBF nos ayudaron a ganar licitaciones y asegurar proyectos rentables."
+    }
+  },
+  {
+    icon: 'Users' as const,
+    title: 'Coordinación BIM',
+    description: 'Integración y coordinación de especialidades para optimizar el diseño y la construcción.',
+    // link: 'https://www.ebfservicios.cl/#contact' as const, // Eliminado
+    viewerUrl: 'https://autodeskviewer.com/embed/your-model-id-4',
+    image: 'src/images/servicios/coordinacion-bim.jpg' as const, // Placeholder image - Updated path
+    benefits: [
+      "Detección temprana de interferencias",
+      "Mejor coordinación entre especialidades",
+      "Reducción de errores en la construcción"
+    ],
+    testimonial: {
+      author: "Cliente D",
+      text: "La coordinación BIM de EBF nos permitieron evitar problemas costosos en la obra."
+    }
+  }
+];
+---
+
+<section id="services" class="py-20 bg-gray-50">
+  <div class="container mx-auto px-4">
+    <h2 class="text-4xl font-bold text-center mb-12">Nuestros Servicios</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      {services.map((service) => {
+        // Define the Service schema for the current service
+        const serviceSchema = {
+          "@context": "https://schema.org",
+          "@type": "Service",
+          "serviceType": service.title, // Use title as service type for now
+          "name": service.title,
+          "description": service.description,
+          // "url": `https://www.ebfservicios.cl${service.link}`, // Eliminado
+          "provider": {
+            "@type": "Organization",
+            "@id": "https://www.ebfservicios.cl/#organization" // Reference the main Organization schema
+          },
+          "areaServed": {
+            "@type": "Country",
+            "name": "CL" // Chile
+          },
+          // Optional: Add potential action if relevant
+          // "potentialAction": {
+          //   "@type": "ViewAction",
+          //   "target": `https://www.ebfservicios.cl${service.link}`
+          // }
+        };
+        return (
+          <>
+            {/* Inject the Service schema */}
+            <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
+            {/* Render the Service Card component */}
+            <ServiceCard 
+              icon={service.icon}
+              title={service.title}
+              description={service.description}
+              image={service.image}
+              benefits={service.benefits}
+              testimonial={service.testimonial}
+            />
+          </>
+        );
+      })}
+    </div>
+  </div>
+</section>

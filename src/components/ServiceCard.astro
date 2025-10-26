@@ -1,0 +1,32 @@
+---
+import { Box, Calculator, Layers, Users } from 'lucide-react'; // Import specific icons
+
+interface Props {
+  icon: "Box" | "Calculator" | "Layers" | "Users"; // Define specific icon types
+  title: string;
+  description: string;
+  // link: string; // Eliminado
+}
+
+const { icon, title, description } = Astro.props; // Eliminado link, image, benefits y testimonial
+---
+
+<div class="group [perspective:1000px]">
+  <div class="relative h-full w-full transition-all duration-500 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)] aspect-square">
+    {/* Front Side */}
+    <div class="absolute inset-0 bg-white p-6 rounded-xl shadow-lg flex flex-col items-center text-center"> {/* Added flex, items-center, text-center for centering */}
+      <div class="text-red-600 mb-4"> {/* Increased bottom margin */}
+        {icon === "Box" && <Box className="w-12 h-12" />} {/* Increased icon size */}
+        {icon === "Calculator" && <Calculator className="w-12 h-12" />} {/* Increased icon size */}
+        {icon === "Layers" && <Layers className="w-12 h-12" />} {/* Increased icon size */}
+        {icon === "Users" && <Users className="w-12 h-12" />} {/* Increased icon size */}
+      </div>
+      <h3 class="text-xl font-semibold mb-2">{title}</h3>
+    </div>
+
+    {/* Back Side */}
+    <div class="absolute inset-0 h-full w-full rounded-xl bg-black/90 px-6 py-4 text-white [transform:rotateY(180deg)] [backface-visibility:hidden] flex flex-col justify-center items-center text-center">
+      <p class="text-gray-300 text-base">{description}</p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,30 @@
+---
+import type { Project } from "../../types/projects";
+
+interface Props {
+  project: Project;
+}
+
+const { project } = Astro.props;
+---
+
+<div class="p-0 w-full">
+  <h3 class="text-sm font-bold mb-1">{project.title}</h3>
+  <p class="text-gray-600 mb-1 text-xs">{project.description}</p>
+
+  <div class="flex flex-wrap gap-1 mb-2">
+    {
+      project.services.map((service) => (
+        <span class="px-2 py-0.5 bg-gray-100 text-gray-600 rounded-full text-xs">
+          {service}
+        </span>
+      ))
+    }
+  </div>
+
+<div class="text-xxs text-black">
+    <p>Cliente: {project.details.client}</p>
+    <p>Fecha: {project.details.date}</p>
+    <p>Ubicación: {project.details.location}</p>
+  </div>
+</div>

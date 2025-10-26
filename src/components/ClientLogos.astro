@@ -1,0 +1,101 @@
+---
+// src/components/ClientLogos.astro
+import 'swiper/css'; // Importar estilos base de Swiper
+import 'swiper/css/autoplay'; // Importar estilos de autoplay
+
+// Lista de logos de clientes (reemplazar con rutas reales)
+// Asegúrate de que estas rutas existan en tu carpeta public/images/logos/
+const clientLogos = [
+  'https://i.postimg.cc/ZR1tbHTZ/Logo-Teyco.png',
+  'https://i.postimg.cc/ZR9zz2zV/Logo-Rene-Lagos.jpg',
+  'https://i.postimg.cc/HLRPXLF9/Marthel.jpg',
+  'https://i.postimg.cc/qM1w2R36/Giaretti.png',
+  'https://i.postimg.cc/DZKRpmp2/Copihues.jpg',
+  'https://i.postimg.cc/ZR1tbHTZ/Logo-Teyco.png',
+  'https://i.postimg.cc/ZR9zz2zV/Logo-Rene-Lagos.jpg',
+  'https://i.postimg.cc/HLRPXLF9/Marthel.jpg',
+  'https://i.postimg.cc/qM1w2R36/Giaretti.png',
+  'https://i.postimg.cc/DZKRpmp2/Copihues.jpg',
+  'https://i.postimg.cc/ZR1tbHTZ/Logo-Teyco.png',
+  'https://i.postimg.cc/ZR9zz2zV/Logo-Rene-Lagos.jpg',
+];
+---
+
+<section class="py-16 bg-gray-100"> {/* Cambiado el fondo para diferenciar */}
+  <div class="container mx-auto px-4">
+    <h2 class="text-3xl font-bold text-center mb-10">Nuestros Clientes Confían en Nosotros</h2>
+    <div class="swiper client-logos-swiper overflow-hidden"> {/* Añadido overflow-hidden */}
+      <div class="swiper-wrapper items-center">
+        {clientLogos.map((logoSrc) => (
+          <div class="swiper-slide flex justify-center p-4"> {/* Añadido padding */}
+            {/* Intenta cargar la imagen, muestra un placeholder si falla */}
+            <img
+              src={logoSrc}
+              alt="Logo Cliente"
+              class="h-16 w-auto object-contain transition-all duration-300"
+              onerror={`
+                this.onerror=null; /* Evitar bucle infinito si el placeholder falla */
+                this.src='/images/logos/placeholder.png';
+                this.alt='Logo no disponible';
+                this.classList.add('opacity-50');
+              `}
+            />
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Importar Swiper y módulos necesarios del lado del cliente
+  import Swiper from 'swiper';
+  import { Autoplay } from 'swiper/modules';
+
+  document.addEventListener('DOMContentLoaded', () => {
+    // Inicializar Swiper después de que el DOM esté listo
+    new Swiper('.client-logos-swiper', {
+      modules: [Autoplay],
+      loop: true,
+      slidesPerView: 2,
+      spaceBetween: 20,
+      speed: 8000,
+      autoplay: {
+        delay: 2000, // Aumentar el delay a 2 segundos
+        disableOnInteraction: false,
+      },
+      grabCursor: true,
+      breakpoints: {
+        640: {
+          slidesPerView: 3,
+          spaceBetween: 30,
+        },
+        768: {
+          slidesPerView: 4,
+          spaceBetween: 40,
+        },
+        1024: {
+          slidesPerView: 5,
+          spaceBetween: 50,
+        },
+        1280: {
+          slidesPerView: 6,
+          spaceBetween: 60,
+        },
+      },
+    });
+  });
+</script>
+
+
+<style is:global>
+  .client-logos-swiper .swiper-slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+  }
+  .client-logos-swiper .swiper-wrapper {
+     transition-timing-function: linear !important; /* Asegurar linear timing */
+  }
+</style>

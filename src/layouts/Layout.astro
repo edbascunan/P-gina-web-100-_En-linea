@@ -1,0 +1,86 @@
+---
+import '../index.css';
+import '../styles/projectCard.css';
+
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth bg-gray-50">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="EBF Servicios - Soluciones de ingeniería y construcción" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{title}</title>
+
+    {/* --- Schema Markup (JSON-LD) --- */}
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://www.ebfservicios.cl/#organization", // Added @id for referencing
+          "name": "EBF Servicios",
+          "url": "https://www.ebfservicios.cl", // Reemplazar con la URL real si es diferente
+          "logo": "/favicon.svg", // Reemplazar con la URL real del logo si es diferente
+          "contactPoint": {
+            "@type": "ContactPoint",
+            "telephone": "+56-9-6801-0204",
+            "contactType": "Customer Service", // O "Sales", "Technical Support", etc.
+            "email": "contacto@ebfservicios.cl",
+            "areaServed": "CL", // Código ISO 3166-1 alpha-2 para Chile
+            "availableLanguage": ["es"] // Código ISO 639-1 para Español
+          },
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Doctor Lucas Sierra 2807, dpto 420",
+            "addressLocality": "Quinta Normal",
+            "addressRegion": "RM", // Región Metropolitana
+            "postalCode": "", // Añadir si se conoce
+            "addressCountry": "CL"
+          },
+          "sameAs": [
+            "https://facebook.com/ebfservicios",
+            "https://instagram.com/ebfservicios",
+            "https://linkedin.com/company/ebfservicios"
+          ]
+        },
+        {
+          "@type": "WebSite",
+          "url": "https://www.ebfservicios.cl", // Reemplazar con la URL real si es diferente
+          "name": "EBF Servicios",
+          "description": "EBF Servicios - Soluciones de ingeniería y construcción",
+          "publisher": {
+            "@type": "Organization",
+            "name": "EBF Servicios" 
+          },
+          "inLanguage": "es"
+        }
+      ]
+    })} />
+    {/* --- Fin Schema Markup --- */}
+
+  </head>
+  <body class="bg-gray-50">
+    <div id="root">
+      <slot />
+    </div>
+  </body>
+  <script>
+    // Manejar navegación suave para enlaces de anclaje
+    document.addEventListener('click', (e) => {
+      const target = e.target as HTMLElement;
+      if (target.tagName === 'A' && target.getAttribute('href')?.startsWith('#')) {
+        e.preventDefault();
+        const id = target.getAttribute('href')?.slice(1);
+        const element = document.getElementById(id || '');
+        element?.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  </script>
+</html>
